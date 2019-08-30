@@ -1,0 +1,14 @@
+<html>
+	<title>Lista de A-Fazeres</title>
+<body>
+	<h1>Sua lista de A-Fazeres</h1>
+	<form method='POST'>
+		<input name='item_text' id='id_new_item' placeholder='Digite seu A-Fazer'/>
+		{% csrf_token %}
+	</form>
+		
+	<table id='id_list_table'>
+		<tr><td>1: {{ new_item_text }}</td></tr>
+	</table>
+</body>
+</html>
