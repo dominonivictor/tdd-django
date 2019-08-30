@@ -1,10 +1,11 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest as ut
 from time import sleep
 
 
-class NewVisitorTest(ut.TestCase):
+class NewVisitorTest(LiveServerTestCase):
+
 	def setUp(self):
 		self.browser = webdriver.Firefox()
 
@@ -17,7 +18,7 @@ class NewVisitorTest(ut.TestCase):
 		self.assertIn(row_text, [row.text for row in rows])
 
 	def test_can_start_a_list_and_retrieve_it_later(self):
-		self.browser.get('http://localhost:8000')
+		self.browser.get(self.live_server_url)
 
 		self.assertIn('A-Fazer', self.browser.title)
 		
@@ -27,8 +28,16 @@ class NewVisitorTest(ut.TestCase):
 		input_box = self.browser.find_element_by_id('id_new_item')
 		self.assertEqual(
 						input_box.get_attribute('placeholder'), 
-						'Digite seu A-Fazer')
+						'Digite seu A-Fazer'
+						)
 		input_box.send_keys('Comprar um desmafagafador')
+		input_box.send_keys(Keys.ENTER)
+		sleep(1)
+		self.check_for_row_in_list_table('1: Comprar um desmafagafador')
+		
+		input_box = self.browser.find_element_by_id('id_new_item')
+		
+		input_box.send_keys('Usar o desmafagafador em um mafagafo')
 		input_box.send_keys(Keys.ENTER)
 		sleep(1)
 
@@ -37,5 +46,3 @@ class NewVisitorTest(ut.TestCase):
 
 		self.fail('Acabar o teste!!')
 
-if __name__ == '__main__':
-	ut.main(warnings='ignore')
