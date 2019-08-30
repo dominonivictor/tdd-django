@@ -14,10 +14,9 @@ class NewVisitorTest(ut.TestCase):
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		self.browser.get('http://localhost:8000')
 
-		title_text = self.browser.title
-		self.assertIn('A-Fazer', title_text)
+		self.assertIn('A-Fazer', self.browser.title)
 		
-		header_text = self.browser.find_element_by_tag_name('h1'.text)
+		header_text = self.browser.find_element_by_tag_name('h1').text
 		self.assertIn('A-Fazer', header_text)
 
 		input_box = self.browser.find_element_by_id('id_new_item')
@@ -29,9 +28,10 @@ class NewVisitorTest(ut.TestCase):
 		sleep(1)
 
 		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.browser.find_elements_by_tag_name('tr')
+		rows = table.find_elements_by_tag_name('tr')
 		self.assertTrue(
-			any(row.text == '1: Comprar um desmafagafador' for row in rows)
+			any(row.text == '1: Comprar um desmafagafador' for row in rows),
+			"Novo item de A-Fazer nao apareceu na tabela"
 			)
 
 		self.fail('Acabar o teste!!')
