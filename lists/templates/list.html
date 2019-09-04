@@ -2,7 +2,7 @@
 	<title>Lista de A-Fazeres</title>
 <body>
 	<h1>Sua lista de A-Fazeres</h1>
-	<form method='POST' action='/'>
+	<form method='POST' action='/lists/new'>
 		<input name='item_text' id='id_new_item' placeholder='Digite seu A-Fazer'/>
 		{% csrf_token %}
 	</form>
