@@ -34,7 +34,7 @@ class NewVisitorTest(LiveServerTestCase):
 					raise e
 				sleep(0.5)
 
-	def ignore_test_can_start_a_list_for_one_user(self):
+	def test_can_start_a_list_for_one_user(self):
 
 		self.browser.get(self.live_server_url)
 
